@@ -1,0 +1,8 @@
+monokai
+Prettier
+
+Settings
+- Format on Save
+- Word Wrap
+- Auto Save: onFocusChange
+
