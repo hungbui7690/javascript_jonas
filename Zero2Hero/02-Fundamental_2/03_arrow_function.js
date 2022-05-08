@@ -5,7 +5,7 @@ const calcAge2 = function(birthYear){
 }
 
 
-// arrow function
+// arrow function >> has no "this" keyword
 const calcAge3 = birthYear => 2022 - birthYear;
 
 const age3 = calcAge3(1990);
