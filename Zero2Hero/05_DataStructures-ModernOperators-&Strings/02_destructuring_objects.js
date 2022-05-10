@@ -20,10 +20,6 @@ const restaurant = {
     },
   },
 
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
-
   // V1
   // orderDelivery: function (obj) {
   //   console.log(obj);
@@ -65,7 +61,7 @@ console.log("---------- 2 -----------");
 
 // changing the variable name
 const {
-  name: restaurantName,
+  name: restaurantName, // oldName : newName
   openingHours: hours,
   categories: tags,
 } = restaurant;
