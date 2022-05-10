@@ -19,21 +19,33 @@ btnCheck.addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log(guess, typeof guess); // when we get data from input field, we will get back String >> so we have to convent it to Number
 
+  // no input
   if (!guess) lblMessage.textContent = 'No Number!⛔';
+  // player wins
   else if (guess === secretNumber) {
     lblMessage.textContent = 'Correct Number!🎉🎉';
+
+    // css manipulation
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
 
     // set highscore
     if (score > highscore) {
       highscore = score;
       lblHighscore.textContent = highscore;
     }
+
+    // wrong number
   } else if (score > 1) {
+    // number is too low
     if (guess < secretNumber) lblMessage.textContent = 'Too Low!📉';
+    // number is too high
     else lblMessage.textContent = 'Too High!📈';
 
     score--;
     lblScore.textContent = score;
+
+    // player lost
   } else if (score === 1 && (guess < secretNumber || guess > secretNumber)) {
     lblMessage.textContent = 'You lost !!! 👎';
     score = 0;
@@ -50,4 +62,6 @@ btnAgain.addEventListener('click', function () {
   secretNumber = Math.trunc(Math.random() * 20 + 1);
   document.querySelector('.number').textContent = secretNumber;
   document.querySelector('.guess').value = '';
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').style.width = '15rem';
 });

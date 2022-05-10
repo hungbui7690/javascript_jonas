@@ -1,5 +1,7 @@
 monokai
 Prettier
+colorize (css color visualization)
+output colorizer
 
 Settings
 - Format on Save
