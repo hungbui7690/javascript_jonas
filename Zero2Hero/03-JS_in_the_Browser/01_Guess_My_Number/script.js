@@ -1,67 +1,110 @@
-const btnCheck = document.querySelector('.check');
-const lblMessage = document.querySelector('.message');
-const lblScore = document.querySelector('.score');
-const lblHighscore = document.querySelector('.highscore');
-const btnAgain = document.querySelector('.again');
+'use strict';
 
+/*
+console.log(document.querySelector('.message').textContent);
+document.querySelector('.message').textContent = '🎉 Correct Number!';
+
+document.querySelector('.number').textContent = 13;
+document.querySelector('.score').textContent = 10;
+
+document.querySelector('.guess').value = 23;
+console.log(document.querySelector('.guess').value);
+*/
+
+let secretNumber = Math.trunc(Math.random() * 20) + 1;
+let score = 20;
 let highscore = 0;
 
-// Math.random() >> return random # between 0 and 1
-// Math.random() * 20 >> random # between 0 and 19.999999 >>> so to get 0 to 20, we need to add 1 >> Math.random() * 20 + 1
-// Math.trunc() >> truncate: remove the decimal, keep the integer
-let secretNumber = Math.trunc(Math.random() * 20 + 1);
-document.querySelector('.number').textContent = secretNumber; // dev
+const displayMessage = function (message) {
+  document.querySelector('.message').textContent = message;
+};
 
-let score = 20; //initial score: when player chooses the wrong number, score will be decreased!
-
-// function is like a value, so we can pass it as an argument to another function. we don't call the anonymouse function in the addEventListener(). we just define it here, so that when we click on the button (as soon as the event happens), the function will be called.
-btnCheck.addEventListener('click', function () {
+document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess); // when we get data from input field, we will get back String >> so we have to convent it to Number
+  console.log(guess, typeof guess);
 
-  // no input
-  if (!guess) lblMessage.textContent = 'No Number!⛔';
-  // player wins
-  else if (guess === secretNumber) {
-    lblMessage.textContent = 'Correct Number!🎉🎉';
+  // When there is no input
+  if (!guess) {
+    // document.querySelector('.message').textContent = '⛔️ No number!';
+    displayMessage('⛔️ No number!');
 
-    // css manipulation
+    // When player wins
+  } else if (guess === secretNumber) {
+    // document.querySelector('.message').textContent = '🎉 Correct Number!';
+    displayMessage('🎉 Correct Number!');
+    document.querySelector('.number').textContent = secretNumber;
+
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
 
-    // set highscore
     if (score > highscore) {
       highscore = score;
-      lblHighscore.textContent = highscore;
+      document.querySelector('.highscore').textContent = highscore;
     }
 
-    // wrong number
-  } else if (score > 1) {
-    // number is too low
-    if (guess < secretNumber) lblMessage.textContent = 'Too Low!📉';
-    // number is too high
-    else lblMessage.textContent = 'Too High!📈';
-
-    score--;
-    lblScore.textContent = score;
-
-    // player lost
-  } else if (score === 1 && (guess < secretNumber || guess > secretNumber)) {
-    lblMessage.textContent = 'You lost !!! 👎';
-    score = 0;
-    lblScore.textContent = score;
-  } else {
-    lblMessage.textContent = 'You lost !!! 👎';
+    // When guess is wrong
+  } else if (guess !== secretNumber) {
+    if (score > 1) {
+      // document.querySelector('.message').textContent =
+      // guess > secretNumber ? '📈 Too high!' : '📉 Too low!';
+      displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too low!');
+      score--;
+      document.querySelector('.score').textContent = score;
+    } else {
+      // document.querySelector('.message').textContent = '💥 You lost the game!';
+      displayMessage('💥 You lost the game!');
+      document.querySelector('.score').textContent = 0;
+    }
   }
+
+  //   // When guess is too high
+  // } else if (guess > secretNumber) {
+  //   if (score > 1) {
+  //     document.querySelector('.message').textContent = '📈 Too high!';
+  //     score--;
+  //     document.querySelector('.score').textContent = score;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 You lost the game!';
+  //     document.querySelector('.score').textContent = 0;
+  //   }
+
+  //   // When guess is too low
+  // } else if (guess < secretNumber) {
+  //   if (score > 1) {
+  //     document.querySelector('.message').textContent = '📉 Too low!';
+  //     score--;
+  //     document.querySelector('.score').textContent = score;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 You lost the game!';
+  //     document.querySelector('.score').textContent = 0;
+  //   }
+  // }
 });
 
-// reset game
-btnAgain.addEventListener('click', function () {
-  lblMessage.textContent = 'Start guessing...';
+document.querySelector('.again').addEventListener('click', function () {
   score = 20;
-  secretNumber = Math.trunc(Math.random() * 20 + 1);
-  document.querySelector('.number').textContent = secretNumber;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+
+  // document.querySelector('.message').textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
+  document.querySelector('.score').textContent = score;
+  document.querySelector('.number').textContent = '?';
   document.querySelector('.guess').value = '';
+
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
 });
+
+///////////////////////////////////////
+// Coding Challenge #1
+
+/* 
+Implement a game rest functionality, so that the player can make a new guess! Here is how:
+
+1. Select the element with the 'again' class and attach a click event handler
+2. In the handler function, restore initial values of the score and secretNumber variables
+3. Restore the initial conditions of the message, number, score and guess input field
+4. Also restore the original background color (#222) and number width (15rem)
+
+GOOD LUCK 😀
+*/
