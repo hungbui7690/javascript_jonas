@@ -72,4 +72,5 @@ console.log("------- 5 -------");
 
 const f = joe.calcAge;
 
-f(); // error >> regular function call >> "this" = undefined >> undefined.year = error
+f(); // error >> regular function call >> "this" = undefined
+// >> undefined.year = error

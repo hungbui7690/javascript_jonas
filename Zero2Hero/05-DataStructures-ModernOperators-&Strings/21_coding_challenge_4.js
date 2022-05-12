@@ -32,3 +32,38 @@ GOOD LUCK 😀
 
 document.body.append(document.createElement("textarea"));
 document.body.append(document.createElement("button"));
+document.querySelector("textarea").value = `underscore_case
+ first_name
+ Some_Variable
+   calculate_AGE
+ delayed_departure`;
+/*
+underscore_case
+ first_name
+ Some_Variable
+   calculate_AGE
+ delayed_departure
+*/
+
+// -------------------------------------------
+
+document.querySelector("button").addEventListener("click", function () {
+  const arr = [];
+  const text = document.querySelector("textarea").value; // for <input> & <textarea>, we use .value instead of .textContent
+  const rows = text.split("\n"); // we have split by \n, not by "_"
+  // console.log(rows);
+  for (const [i, row] of rows.entries()) {
+    const [first, second] = row.trim().split("_");
+    // const output = `${first}${second[0].toUpperCase()}${second.slice(1)}`; //method 1
+    let output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`.padEnd(25); // method 2
+
+    // .padEnd(25) === .padEnd(25, ' ')
+
+    output += "*".repeat(i + 1);
+
+    console.log(output);
+  }
+});

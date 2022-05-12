@@ -7,7 +7,7 @@ const joe = {
     console.log(this);
     console.log(2022 - this.year);
 
-    // v1: tihs = undefined
+    // v1: this = undefined
     // const isMillenial = function () {
     //   console.log(this.year >= 1981 && this.year <= 1996);
     // };
