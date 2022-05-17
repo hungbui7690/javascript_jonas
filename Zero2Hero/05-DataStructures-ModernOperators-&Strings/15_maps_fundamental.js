@@ -1,6 +1,15 @@
 // A lot more useful than Sets
 // like object, but the key in maps can be any type (keys in object are string)
 
+/*
+  get()
+  set()
+  has()
+  delete()
+  clear()
+  size
+*/
+
 const restaurant = new Map(); //create empty map
 restaurant.set("name", "Classico Italiano"); // add new item to map
 restaurant.set(1, "Firenze, Italy"); // key in map can be any type
@@ -21,8 +30,8 @@ restaurant
 console.log(restaurant);
 console.log(restaurant.get("name"));
 console.log(restaurant.get(true));
-console.log(restaurant.get("true")); // must be correct in type to get the value
-console.log(restaurant.get("1"));
+console.log(restaurant.get("true")); // undefined >> must be correct in type to get the value
+console.log(restaurant.get("1")); // undefined
 
 //----------------------------------------
 console.log("-------------- 2 -------------");
@@ -42,11 +51,11 @@ console.log("-------------- 3 -------------");
 console.log(restaurant.has("categories"));
 restaurant.delete(2);
 // restaurant.clear();
-console.log(restaurant);
+console.log("After deleted ", restaurant);
 console.log(restaurant.size);
 
 //----------------------------------------
-console.log("-------------- 3 -------------");
+console.log("-------------- 4 -------------");
 //----------------------------------------
 
 restaurant.set([1, 2], "Test"); // key is an array
@@ -58,7 +67,7 @@ restaurant.set(arr, "Test");
 console.log(restaurant.get(arr));
 
 //----------------------------------------
-console.log("-------------- 4 -------------");
+console.log("-------------- 5 -------------");
 //----------------------------------------
 
 restaurant.set(document.querySelector("h1"), "Heading 1");

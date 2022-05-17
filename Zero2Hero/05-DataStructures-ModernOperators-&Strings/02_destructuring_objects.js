@@ -32,7 +32,7 @@ const restaurant = {
   //   );
   // },
 
-  // V3: set default value
+  // V3: destructuring + set default value
   orderDelivery: function ({
     starterIndex = 1,
     mainIndex = 1,
@@ -85,7 +85,7 @@ let a = 111;
 let b = 999;
 const obj = { a: 23, b: 7, c: 14 };
 ({ a, b } = obj); // if we don't have () >> error because JS will think {} is a code block
-console.log(a, b); // we mutated a, and b >> a was 111, b was 999
+console.log(a, b); // 23, 7 >> we mutated a, and b >> a was 111, b was 999
 
 //---------------------------------------------------
 console.log("---------- 5 -----------");

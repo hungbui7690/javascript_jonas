@@ -84,7 +84,7 @@ bookEW(123, "Stephen Chau");
 console.log(eurowings);
 
 //----------------------------------------
-console.log("--------- 3 ---------");
+console.log("--------- 4 ---------");
 //----------------------------------------
 
 // pre-defined parameter with BIND()
@@ -95,7 +95,7 @@ bookEW23("Tony Harden");
 console.log(eurowings);
 
 //----------------------------------------
-console.log("--------- 3 ---------");
+console.log("--------- 5 ---------");
 //----------------------------------------
 
 // Event Listeners
@@ -111,10 +111,10 @@ lufthansa.buyPlane(); // this = lufthansa
 
 document
   .querySelector(".buy")
-  .addEventListener("click", lufthansa.buyPlane.bind(lufthansa));
+  .addEventListener("click", lufthansa.buyPlane.bind(lufthansa)); // fix
 
 //----------------------------------------
-console.log("--------- 3 ---------");
+console.log("--------- 6 ---------");
 //----------------------------------------
 
 // Partial Application: application that we can preset parameter (i.e: tax rate)
@@ -128,7 +128,7 @@ console.log(addVAT(100));
 console.log(addVAT(200));
 
 //----------------------------------------
-console.log("--------- 3 ---------");
+console.log("--------- 7 ---------");
 //----------------------------------------
 
 // Challenge: From the tax example above, use functions return functions to re-write

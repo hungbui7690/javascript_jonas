@@ -29,7 +29,7 @@ const restaurant = {
 
   // 1)
   // openingHours: openingHours, // pre ES6
-  openingHours, // ES6 enhanced object literals: when property key & value are equal >> we can remove one
+  openingHours, // ES6 enhanced object literals: when property key & value are equal >> we can omit one
 
   orderDelivery: function ({
     starterIndex = 1,

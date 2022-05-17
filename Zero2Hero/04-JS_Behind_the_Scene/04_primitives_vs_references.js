@@ -1,6 +1,6 @@
 // primitives
 let age = 30;
-let oldAge = 30;
+let oldAge = age;
 age = 31;
 console.log(age);
 console.log(oldAge);
@@ -45,7 +45,3 @@ jessicaCopy.family.push("Mary");
 jessicaCopy.family.push("John");
 console.log("Jessica: ", jessica);
 console.log("Jessica Copy: ", jessicaCopy);
-
-// ---------------------------------------------------------
-console.log("------- 3 -------");
-// ---------------------------------------------------------

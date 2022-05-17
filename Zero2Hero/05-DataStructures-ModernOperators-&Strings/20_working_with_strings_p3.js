@@ -2,7 +2,9 @@
 console.log(`------------ 1 -----------`);
 //-----------------------------------------
 
-// Split & Join
+// SPLIT(): return array
+// JOIN(): merge array into string
+
 console.log("a+very+nice+string".split("+"));
 console.log("Joe Doe".split(" "));
 
@@ -53,7 +55,7 @@ const maskCreditCard = function (number) {
   const lastFour = str.slice(-4);
   return lastFour.padStart(str.length, "*");
 };
-console.log(maskCreditCard(45345345223234423));
+console.log(maskCreditCard(45345223234423));
 console.log(maskCreditCard("234234234156876787687"));
 
 //-----------------------------------------

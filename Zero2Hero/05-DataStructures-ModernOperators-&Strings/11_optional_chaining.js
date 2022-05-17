@@ -47,7 +47,7 @@ console.log("--------- 1 ---------");
 const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 for (const day of days) {
   console.log(day);
-  const open = restaurant.openingHours[day]?.open ?? "closed"; // because on sunday, open at 0 >> use ?? instead of ||
+  const open = restaurant.openingHours[day]?.open ?? "closed"; // because on sunday, open at 0 >> use ?? (nullish) instead of || (or)
   console.log(`On ${day}, ${open}`);
 }
 
@@ -56,19 +56,20 @@ console.log("--------- 2 ---------");
 //--------------------------------------
 
 // we can also check if the methods exist in the object or not
-console.log(restaurant.order?.(0, 1) ?? "Method does not exist");
+console.log(restaurant.order?.(0, 1) ?? "Method does NOT exist! ⛔");
 
-console.log(restaurant.orderBread?.(0, 1) ?? "Method does not exist");
+console.log(restaurant.orderBread?.(0, 1) ?? "Method does NOT exist! ⛔");
 
 //--------------------------------------
 console.log("--------- 3 ---------");
 //--------------------------------------
 
-// Check Array
+// -----Check Array----
+// new method
 // const user = [{ name: "Joe", email: "joe@gmail.com" }];
 const user = [];
 console.log(user[0]?.name ?? "User array is empty!");
 
-// old way
+// old method
 if (user.length > 0) console.log(user[0].name);
 else console.log("User array is empty!");

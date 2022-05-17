@@ -22,7 +22,7 @@ console.log(joe); // changed >> ref type
 let flightNum = flight;
 let passenger = joe;
 flightNum = "LH999";
-passenger.name = "xxx";
+passenger.name = "xxx"; // changing passenger makes joe object changes as well
 console.log(flight, joe);
 
 // ------------------------------------------------

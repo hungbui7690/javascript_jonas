@@ -29,19 +29,19 @@ console.log("------------- 1 ------------");
 
 // restaurant.numGuest = 23;
 const guests1 = restaurant.numGuest ? restaurant.numGuest : 10; // old method
-console.log(guests1);
+console.log(`guests1: `, guests1);
 
 // short-circuiting
 const guests2 = restaurant.numGuest || 10;
-console.log(guests2);
+console.log(`guests2: `, guests2);
 
 //-------------------------------------------
 console.log("------------- AND ------------");
 //-------------------------------------------
 
 // last truthy value will be the result
-console.log(0 && "Joe"); // Joe
-console.log(7 && "Joe"); // 7
+console.log(0 && "Joe"); // 0
+console.log(7 && "Joe"); // Joe
 console.log("Hello" && 23 && null && "joe"); // null
 
 //-------------------------------------------

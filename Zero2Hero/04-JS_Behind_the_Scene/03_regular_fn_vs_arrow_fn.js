@@ -29,12 +29,13 @@ const joe = {
   greet: () => console.log(`Hey ${this.firstName}`),
 };
 
-joe.greet(); // undefined >> {} is not a block, so it does not have scope, it is just the object literal which we use to define object >> global scope, not block scope
+joe.greet(); // arrow function >> Hey undefined
+// {} is not a block, so it does not have scope, it is just the object literal which we use to define object >> global scope, not block scope
 
 console.log(this.firstName); // undefined, no error >> because this = global scope, and in global scope does no have firstName >> that's is also why we don't use var to define variable. It will make that variable appears in the global scope
 
 var firstName = "matilda"; // firstName will be added to global scope
-console.log(this.firstName); // at this time, this.firstName = window.firstName
+console.log(this.firstName); // at this time, this.firstName = window.firstName = matilda
 
 // >>>>>> we should use regular function to define function in object literal
 

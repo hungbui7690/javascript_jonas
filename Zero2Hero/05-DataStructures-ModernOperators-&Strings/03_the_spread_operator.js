@@ -29,19 +29,22 @@ const restaurant = {
 console.log("---------- 1 -----------");
 //---------------------------------------------------
 
-// spread operator
+/*
+  SPREAD OPERATOR
+*/
+
 const arr = [7, 8, 9];
 
 // old method
 const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
-console.log(badNewArray);
+console.log(`badNewArray`, badNewArray);
 
 // ES6
 const arr1 = [1, 2, arr]; // without ... >> without unpacking the arr array
-console.log(arr1);
+console.log(`arr1`, arr1);
 
 const newArray = [1, 2, ...arr]; // with ... >> unpacking the arr array
-console.log(newArray);
+console.log(`newArray`, newArray);
 
 console.log(...newArray);
 
@@ -51,7 +54,7 @@ console.log("---------- 2 -----------");
 
 // we don't mutate the original array, but create a new array
 const newMenu = [...restaurant.mainMenu, "Gnocci"];
-console.log(newMenu);
+console.log(`newMenu`, newMenu);
 
 // the difference between the spread operator and destructuring is: we don't create new variable with spread operator, and also we take all the elements from the original array.
 
@@ -61,11 +64,11 @@ console.log("---------- 3 -----------");
 
 // copy array >> shallow copy
 const mainMenuCopy = [...restaurant.mainMenu];
-console.log(mainMenuCopy);
+console.log(`mainMenuCopy`, mainMenuCopy);
 
 // join/merge 2 arrays
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
-console.log(menu);
+console.log(`menu`, menu);
 
 //---------------------------------------------------
 console.log("---------- 4 -----------");
@@ -74,7 +77,7 @@ console.log("---------- 4 -----------");
 // Iterables: array, strings, maps, sets, NOT objects
 const str = "john";
 const letters = [...str, " ", " X"];
-console.log(letters);
+console.log(`letters`, letters);
 
 // this won't work since ${} is not the place to put multiple values
 // console.log(`${...str}`);
@@ -97,7 +100,7 @@ console.log("---------- 6 -----------");
 
 // copy to new object
 const newRestaurant = { foundedIn: 1998, ...restaurant, founder: "Guisepe" };
-console.log(newRestaurant);
+console.log(`newRestaurant`, newRestaurant);
 
 // copy and change property value
 const restaurantCopy = { ...restaurant };

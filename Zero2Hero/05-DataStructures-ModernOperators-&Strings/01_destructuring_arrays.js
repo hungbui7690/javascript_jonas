@@ -28,6 +28,7 @@ console.log(arr); // original array will not be destroyed
 console.log("---------- 1 -----------");
 //---------------------------------------------------
 
+// categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"]
 const [first, second] = restaurant.categories;
 console.log(first, second);
 
@@ -53,6 +54,10 @@ console.log(main, secondary);
 //---------------------------------------------------
 console.log("---------- 3 -----------");
 //---------------------------------------------------
+
+// order: function (starterIndex, mainIndex) {
+//   return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+// },
 
 // receive 2 return values from a function
 console.log(restaurant.order(2, 0));

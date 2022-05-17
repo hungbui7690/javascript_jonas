@@ -39,17 +39,22 @@ const arr = [1, 2, ...[3, 4]]; // ... is on the right side of =
 
 // rest operator
 const [a, b, ...others] = [1, 2, 3, 4, 5];
-console.log(a, b, others); // ... is on the left side of =, and is at the end of the array
+console.log(`1/`, a, b, others); // ... is on the left side of =, and is at the end of the array
 
 //---------------------------------------------------
 console.log("---------- 2 -----------");
 //---------------------------------------------------
 
+/*
+mainMenu: ["Pizza", "Pasta", "Risotto"]
+starterMenu: ["Focaccia", "Bruschetta", "Garlic Bread", "Caprese Salad"]
+*/
+
 const [pizza, , rissoto, ...otherFood] = [
   ...restaurant.mainMenu,
   ...restaurant.starterMenu,
 ];
-console.log(pizza, rissoto, otherFood);
+console.log(`2/`, pizza, rissoto, otherFood);
 
 //---------------------------------------------------
 console.log("---------- 3 -----------");
@@ -57,7 +62,7 @@ console.log("---------- 3 -----------");
 
 // Objects
 const { sat, ...weekdays } = restaurant.openingHours;
-console.log(sat, weekdays);
+console.log(`3/`, sat, weekdays);
 
 //---------------------------------------------------
 console.log("---------- 4 -----------");
@@ -84,10 +89,3 @@ console.log("---------- 5 -----------");
 //---------------------------------------------------
 restaurant.orderPizza("mushroom", "onion", "olives");
 restaurant.orderPizza("mushroom");
-
-//---------------------------------------------------
-console.log("---------- 6 -----------");
-//---------------------------------------------------
-//---------------------------------------------------
-console.log("---------- 7 -----------");
-//---------------------------------------------------

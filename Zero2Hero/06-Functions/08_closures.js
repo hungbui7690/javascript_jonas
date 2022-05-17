@@ -1,8 +1,9 @@
+// secureBooking() >> outer
 const secureBooking = function () {
   let passengerCount = 0;
 
+  //booker() >> inner
   return function () {
-    //booker()
     passengerCount++;
     console.log(`${passengerCount} passengers`);
   };

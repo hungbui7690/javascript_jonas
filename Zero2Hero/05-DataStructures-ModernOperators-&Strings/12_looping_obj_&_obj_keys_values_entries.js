@@ -14,7 +14,7 @@ const openingHours = {
 };
 
 //-----------------------------------------
-console.log("----------- 1 ------------");
+console.log("-------- 1 --------");
 //-----------------------------------------
 
 // Object.keys(obj)
@@ -30,7 +30,7 @@ for (const day of Object.keys(openingHours)) {
 console.log(openStr);
 
 //-----------------------------------------
-console.log("----------- 2 ------------");
+console.log("-------- 2 --------");
 //-----------------------------------------
 
 // Object.values(obj)
@@ -38,7 +38,7 @@ const values = Object.values(openingHours);
 console.log(values);
 
 //-----------------------------------------
-console.log("----------- 3 ------------");
+console.log("-------- 3 --------");
 //-----------------------------------------
 
 // Loop through entire object:

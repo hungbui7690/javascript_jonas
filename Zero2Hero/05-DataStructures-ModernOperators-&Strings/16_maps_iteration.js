@@ -1,3 +1,17 @@
+/*
+  1)  new Map()
+      set() 
+  3)  new Map([
+      [key, value],
+      [key, value]
+  ])
+  2) new Map(Object.entries(obj{obj}))
+
+  map.entries()
+  map.keys()
+  map.values()
+*/
+
 const openingHours = {
   thu: {
     open: 12,
@@ -24,12 +38,12 @@ const question = new Map([
 ]); // array of arrays [key, value]
 console.log(question);
 
-console.log(Object.entries(openingHours)); // array of arrays
+console.log(`Object.entries()`, Object.entries(openingHours)); // array of arrays
 
 // we can use question map & Object.entries(object) have the same structure of data (Array of arrays [key, value]) >> so we can convert object to map easily by using Object.entries(object)
 
 const hoursMap = new Map(Object.entries(openingHours));
-console.log(hoursMap);
+console.log("hoursMap", hoursMap);
 
 //-------------------------------------------
 console.log("---------- 1 ----------");
@@ -59,6 +73,7 @@ console.log([...question]);
 console.log("---------- 3 ----------");
 //-------------------------------------------
 
+// 3 methods below will return Iterator
 console.log(question.entries()); // get data from maps
 console.log(question.keys());
 console.log(question.values());

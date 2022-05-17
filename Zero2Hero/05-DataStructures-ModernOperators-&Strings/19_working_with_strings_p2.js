@@ -37,7 +37,7 @@ console.log(`------------ 4 -----------`);
 
 // replace
 const priceGB = "288,97#";
-const priceUS = priceGB.replace("#", "$").replace(",", ".");
+const priceUS = priceGB.replace("#", "$").replace(",", "."); // chaining
 console.log(priceUS);
 
 const annoucement = `All passenger come to boarding door 23. Boarding door 23!`;
@@ -61,6 +61,7 @@ console.log(plane.includes("A320"));
 console.log(plane.includes("Boeing"));
 
 console.log(plane.startsWith("Air"));
+console.log(plane.startsWith("A320"));
 
 if (plane.startsWith("Air") && plane.endsWith("neo"))
   console.log(`Part of New Airbus family!`);
