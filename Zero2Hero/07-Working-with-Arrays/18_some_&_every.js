@@ -1,27 +1,18 @@
 const labelWelcome = document.querySelector(".welcome");
-const labelDate = document.querySelector(".date");
 const labelBalance = document.querySelector(".balance__value");
 const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
-const labelTimer = document.querySelector(".timer");
-
-const containerApp = document.querySelector(".app");
-const containerMovements = document.querySelector(".movements");
-
-const btnLogin = document.querySelector(".login__btn");
-const btnTransfer = document.querySelector(".form__btn--transfer");
-const btnLoan = document.querySelector(".form__btn--loan");
-const btnClose = document.querySelector(".form__btn--close");
-const btnSort = document.querySelector(".btn--sort");
 
 const inputLoginUsername = document.querySelector(".login__input--user");
 const inputLoginPin = document.querySelector(".login__input--pin");
-const inputTransferTo = document.querySelector(".form__input--to");
-const inputTransferAmount = document.querySelector(".form__input--amount");
 const inputLoanAmount = document.querySelector(".form__input--loan-amount");
-const inputCloseUsername = document.querySelector(".form__input--user");
-const inputClosePin = document.querySelector(".form__input--pin");
+
+const btnLogin = document.querySelector(".login__btn");
+const btnLoan = document.querySelector(".form__btn--loan");
+
+const containerApp = document.querySelector(".app");
+const containerMovements = document.querySelector(".movements");
 
 const account1 = {
   owner: "Jonas Schmedtmann",
@@ -53,6 +44,8 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 //------------------------------------
 //------------------------------------
 
@@ -67,9 +60,6 @@ const createUsernames = function (accounts) {
 };
 
 createUsernames(accounts);
-
-//----------------------------------
-//----------------------------------
 
 const displayMovements = function (movements) {
   movements.forEach(function (mov, i) {
@@ -89,9 +79,6 @@ const displayMovements = function (movements) {
   });
 };
 displayMovements(account1.movements);
-
-//------------------------------------
-//------------------------------------
 
 const calcDisplaySummary = function (account) {
   const incomes = account.movements
@@ -120,19 +107,10 @@ const calcDisplaySummary = function (account) {
 
 calcDisplaySummary(account1);
 
-//----------------------------------------
-//-------- START HERE --------------------
-
-// change parameter movements = account
-// balace >>> account.balance, movements >>> account.movements
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${account.balance}€`;
 };
-// calcDisplayBalance(account1);
-
-//----------------------------------------
-//----------------------------------------
 
 const updateUI = function (acc) {
   // Display Balance
@@ -143,6 +121,7 @@ const updateUI = function (acc) {
   displayMovements(acc.movements);
 };
 
+// Login
 let currentAccount;
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); // prevent page from refreshing when button is clicked
@@ -168,33 +147,72 @@ btnLogin.addEventListener("click", function (e) {
   }
 });
 
-//------------------------------------------
-//------------------------------------------
+//----------------------------------------
+//-------- START HERE --------------------
 
-//------------------------------------------
-//------------ TRANSFER --------------------
+// SOME() >> return true if at least 1 element in the array matches the condition
 
-btnTransfer.addEventListener("click", function (e) {
+// .includes() is used to test "EQUALITY" only
+console.log(`includes() `, movements.includes(-130));
+
+// What if we want to test if there are any deposit in the account? >> test "CONDITION"
+const anyDeposits = movements.some((mov) => mov > 0);
+console.log(`some() `, anyDeposits);
+
+// We also can use .some() to test Equality as well
+// but it doesn't make sense, since we can use .includes() in this case
+console.log(
+  `some() equality: `,
+  movements.some((mov) => mov === -130)
+);
+
+//----------------------------------------
+//----------------------------------------
+
+// Now we will use some() to work on the functionality: Request Loan
+// Just can request loan only if there is at least 1 deposit and = 10% of loan amount
+
+btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
-  const receiveracc = accounts.find(
-    (acc) => acc.username === inputTransferTo.value
-  );
-  console.log("receiver ", receiveracc);
 
+  const amount = Number(inputLoanAmount.value);
+
+  // now, if the maximum deposit in the account is 3,000 >> user can request 30,000
   if (
     amount > 0 &&
-    currentAccount.balance >= amount &&
-    receiveracc &&
-    receiveracc?.username != currentAccount.username
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
   ) {
-    currentAccount.movements.push(amount * -1);
-    receiveracc.movements.push(amount);
-
+    // Add movement to array
+    currentAccount.movements.push(amount);
+    // update UI
     updateUI(currentAccount);
     // clear fields
-    inputTransferAmount.value = inputTransferTo.value = "";
-    inputTransferTo.blur(); // remove focus
-    inputTransferAmount.blur();
+    inputLoanAmount.value = "";
+    inputLoanAmount.blur(); // remove focus
   }
 });
+
+//----------------------------------------
+console.log(`-------EVERY()---------`);
+//----------------------------------------
+
+// EVERY() will return true only if all the elements match the condition
+console.log(movements.every((mov) => mov > 0));
+
+// const account4 = {
+//   owner: "Sarah Smith",
+//   movements: [430, 1000, 700, 50, 90],
+//   interestRate: 1,
+//   pin: 4444,
+// };
+console.log(account4.movements.every((mov) => mov > 0));
+
+//----------------------------------------
+console.log(`-------Separated Callbacks---------`);
+//----------------------------------------
+
+// can reuse easily
+const deposits = (mov) => mov > 0;
+console.log(movements.some(deposits));
+console.log(movements.every(deposits));
+console.log(movements.filter(deposits));

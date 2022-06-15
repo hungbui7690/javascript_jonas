@@ -1,27 +1,19 @@
 const labelWelcome = document.querySelector(".welcome");
-const labelDate = document.querySelector(".date");
 const labelBalance = document.querySelector(".balance__value");
 const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
-const labelTimer = document.querySelector(".timer");
-
-const containerApp = document.querySelector(".app");
-const containerMovements = document.querySelector(".movements");
-
-const btnLogin = document.querySelector(".login__btn");
-const btnTransfer = document.querySelector(".form__btn--transfer");
-const btnLoan = document.querySelector(".form__btn--loan");
-const btnClose = document.querySelector(".form__btn--close");
-const btnSort = document.querySelector(".btn--sort");
 
 const inputLoginUsername = document.querySelector(".login__input--user");
 const inputLoginPin = document.querySelector(".login__input--pin");
-const inputTransferTo = document.querySelector(".form__input--to");
-const inputTransferAmount = document.querySelector(".form__input--amount");
 const inputLoanAmount = document.querySelector(".form__input--loan-amount");
-const inputCloseUsername = document.querySelector(".form__input--user");
-const inputClosePin = document.querySelector(".form__input--pin");
+
+const btnLogin = document.querySelector(".login__btn");
+const btnLoan = document.querySelector(".form__btn--loan");
+const btnSort = document.querySelector(".btn--sort");
+
+const containerApp = document.querySelector(".app");
+const containerMovements = document.querySelector(".movements");
 
 const account1 = {
   owner: "Jonas Schmedtmann",
@@ -53,6 +45,8 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 //------------------------------------
 //------------------------------------
 
@@ -68,10 +62,11 @@ const createUsernames = function (accounts) {
 
 createUsernames(accounts);
 
-//----------------------------------
-//----------------------------------
+// add 2nd parameters
+const displayMovements = function (movements, sort = false) {
+  // sort here
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-const displayMovements = function (movements) {
   movements.forEach(function (mov, i) {
     const type = mov < 0 ? "withdrawal" : "deposit";
 
@@ -88,10 +83,7 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-displayMovements(account1.movements);
-
-//------------------------------------
-//------------------------------------
+// displayMovements(account1.movements);
 
 const calcDisplaySummary = function (account) {
   const incomes = account.movements
@@ -120,19 +112,10 @@ const calcDisplaySummary = function (account) {
 
 calcDisplaySummary(account1);
 
-//----------------------------------------
-//-------- START HERE --------------------
-
-// change parameter movements = account
-// balace >>> account.balance, movements >>> account.movements
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${account.balance}€`;
 };
-// calcDisplayBalance(account1);
-
-//----------------------------------------
-//----------------------------------------
 
 const updateUI = function (acc) {
   // Display Balance
@@ -143,6 +126,7 @@ const updateUI = function (acc) {
   displayMovements(acc.movements);
 };
 
+// Login
 let currentAccount;
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); // prevent page from refreshing when button is clicked
@@ -168,33 +152,45 @@ btnLogin.addEventListener("click", function (e) {
   }
 });
 
-//------------------------------------------
-//------------------------------------------
+//--------------------------------------
+//---------------START HERE-------------
 
-//------------------------------------------
-//------------ TRANSFER --------------------
+// Sort Strings
+const owners = ["A", "D", "C", "B"];
+console.log(owners.sort());
 
-btnTransfer.addEventListener("click", function (e) {
+console.log(owners); // >>>>> mutate the original array
+
+//--------------------------------------
+console.log(`-----------1----------`);
+//--------------------------------------
+
+// Sort Numbers
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements.sort()); // does not show the correct result >> the problem is the sort() is sorting based on string >> negative first, then positive >>> we need to use callback function
+
+// a, b: current & next values
+// if return < 0 >> a before b
+// if return > 0 >> b before a
+movements.sort((a, b) => {
+  if (a > b) return 1;
+  if (b > a) return -1;
+});
+console.log(movements);
+
+// short hand
+movements.sort((a, b) => {
+  return b - a;
+});
+console.log(movements);
+
+//--------------------------------------
+console.log(`-----------2----------`);
+//--------------------------------------
+
+// 1) Go back to displayMovements() & add 2nd parameter
+// 2) working on the button
+btnSort.addEventListener("click", function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
-  const receiveracc = accounts.find(
-    (acc) => acc.username === inputTransferTo.value
-  );
-  console.log("receiver ", receiveracc);
-
-  if (
-    amount > 0 &&
-    currentAccount.balance >= amount &&
-    receiveracc &&
-    receiveracc?.username != currentAccount.username
-  ) {
-    currentAccount.movements.push(amount * -1);
-    receiveracc.movements.push(amount);
-
-    updateUI(currentAccount);
-    // clear fields
-    inputTransferAmount.value = inputTransferTo.value = "";
-    inputTransferTo.blur(); // remove focus
-    inputTransferAmount.blur();
-  }
+  displayMovements(currentAccount.movements, true);
 });

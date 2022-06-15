@@ -1,27 +1,23 @@
+// FINDINDEX() >> similar to find() but return the index
+
 const labelWelcome = document.querySelector(".welcome");
-const labelDate = document.querySelector(".date");
 const labelBalance = document.querySelector(".balance__value");
 const labelSumIn = document.querySelector(".summary__value--in");
 const labelSumOut = document.querySelector(".summary__value--out");
 const labelSumInterest = document.querySelector(".summary__value--interest");
-const labelTimer = document.querySelector(".timer");
+
+const inputTransferTo = document.querySelector(".form__input--to");
+const inputTransferAmount = document.querySelector(".form__input--amount");
+const inputLoginUsername = document.querySelector(".login__input--user");
+const inputLoginPin = document.querySelector(".login__input--pin");
+const inputCloseUsername = document.querySelector(".form__input--user");
+const inputClosePin = document.querySelector(".form__input--pin");
+
+const btnLogin = document.querySelector(".login__btn");
+const btnClose = document.querySelector(".form__btn--close");
 
 const containerApp = document.querySelector(".app");
 const containerMovements = document.querySelector(".movements");
-
-const btnLogin = document.querySelector(".login__btn");
-const btnTransfer = document.querySelector(".form__btn--transfer");
-const btnLoan = document.querySelector(".form__btn--loan");
-const btnClose = document.querySelector(".form__btn--close");
-const btnSort = document.querySelector(".btn--sort");
-
-const inputLoginUsername = document.querySelector(".login__input--user");
-const inputLoginPin = document.querySelector(".login__input--pin");
-const inputTransferTo = document.querySelector(".form__input--to");
-const inputTransferAmount = document.querySelector(".form__input--amount");
-const inputLoanAmount = document.querySelector(".form__input--loan-amount");
-const inputCloseUsername = document.querySelector(".form__input--user");
-const inputClosePin = document.querySelector(".form__input--pin");
 
 const account1 = {
   owner: "Jonas Schmedtmann",
@@ -120,19 +116,10 @@ const calcDisplaySummary = function (account) {
 
 calcDisplaySummary(account1);
 
-//----------------------------------------
-//-------- START HERE --------------------
-
-// change parameter movements = account
-// balace >>> account.balance, movements >>> account.movements
 const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${account.balance}€`;
 };
-// calcDisplayBalance(account1);
-
-//----------------------------------------
-//----------------------------------------
 
 const updateUI = function (acc) {
   // Display Balance
@@ -143,6 +130,7 @@ const updateUI = function (acc) {
   displayMovements(acc.movements);
 };
 
+// Login
 let currentAccount;
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); // prevent page from refreshing when button is clicked
@@ -168,33 +156,30 @@ btnLogin.addEventListener("click", function (e) {
   }
 });
 
-//------------------------------------------
-//------------------------------------------
+//----------------------------------------
+//-------- START HERE --------------------
 
-//------------------------------------------
-//------------ TRANSFER --------------------
+// now, we want to delete account from the accounts array >> but to delete, we need to know the index of that account >>> use the SPLICE()
 
-btnTransfer.addEventListener("click", function (e) {
+btnClose.addEventListener("click", function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
-  const receiveracc = accounts.find(
-    (acc) => acc.username === inputTransferTo.value
-  );
-  console.log("receiver ", receiveracc);
-
+  // console.log(currentAccount.pin, inputClosePin.value);
+  // console.log(currentAccount.username, inputCloseUsername.value);
   if (
-    amount > 0 &&
-    currentAccount.balance >= amount &&
-    receiveracc &&
-    receiveracc?.username != currentAccount.username
+    Number(inputClosePin.value) === currentAccount.pin &&
+    inputCloseUsername.value === currentAccount.username
   ) {
-    currentAccount.movements.push(amount * -1);
-    receiveracc.movements.push(amount);
+    // get the index
+    const index = accounts.findIndex(
+      (acc) => acc.username === inputCloseUsername.value
+    );
 
-    updateUI(currentAccount);
-    // clear fields
-    inputTransferAmount.value = inputTransferTo.value = "";
-    inputTransferTo.blur(); // remove focus
-    inputTransferAmount.blur();
+    // using the SPLICE() & the index to delete account
+    accounts.splice(index, 1);
+
+    // hide UI
+    containerApp.style.opacity = 0;
   }
+  inputClosePin.value = inputCloseUsername.value = "";
+  inputClosePin.blur(); // remove focus
 });

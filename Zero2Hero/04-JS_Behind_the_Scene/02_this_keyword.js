@@ -46,7 +46,6 @@ const joe = {
   },
 };
 
-// this = object who calls the method >> joe
 joe.calcAge();
 
 // ---------------------------------------------------------

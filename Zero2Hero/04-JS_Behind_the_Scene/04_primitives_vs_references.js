@@ -12,9 +12,9 @@ const me = {
 };
 
 const friend = me; // at this time, both point to the same object in the heap
-friend.me = 27;
+friend.age = 27;
 console.log("Friend: ", friend);
-console.log("Me: ", me); // age was chaged to 27
+console.log("Me: ", age); // age was chaged to 27
 
 // ---------------------------------------------------------
 console.log("------- 1 -------");

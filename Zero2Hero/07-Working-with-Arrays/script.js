@@ -108,6 +108,7 @@ const displayMovements = function (movements) {
 //------------------------------------
 //------------------------------------
 
+// create username property in every account based on their full names (i.e Jessica Davis = jd)
 const createUsernames = function (accounts) {
   accounts.forEach((acc, i) => {
     acc.username = acc.owner
@@ -170,7 +171,7 @@ const updateUI = function (acc) {
 };
 
 //----------------------------------------
-//----------------------------------------
+//---------------- LOGIN -----------------
 
 let currentAccount;
 btnLogin.addEventListener("click", function (e) {
@@ -198,7 +199,7 @@ btnLogin.addEventListener("click", function (e) {
 });
 
 //------------------------------------------
-//------------------------------------------
+//------------ TRANSFER --------------------
 
 btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
@@ -222,5 +223,54 @@ btnTransfer.addEventListener("click", function (e) {
     inputTransferAmount.value = inputTransferTo.value = "";
     inputTransferTo.blur(); // remove focus
     inputTransferAmount.blur();
+  }
+});
+
+//----------------------------------------
+//--------- DELETE ACCOUNT ---------------
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  // console.log(currentAccount.pin, inputClosePin.value);
+  // console.log(currentAccount.username, inputCloseUsername.value);
+  if (
+    Number(inputClosePin.value) === currentAccount.pin &&
+    inputCloseUsername.value === currentAccount.username
+  ) {
+    // get the index
+    const index = accounts.findIndex(
+      (acc) => acc.username === inputCloseUsername.value
+    );
+
+    // using the SPLICE() & the index to delete account
+    accounts.splice(index, 1);
+
+    // hide UI
+    containerApp.style.opacity = 0;
+  }
+  inputClosePin.value = inputCloseUsername.value = "";
+  inputClosePin.blur(); // remove focus
+});
+
+// Now we will use some() to work on the functionality: Request Loan
+// Just can request loan only if there is at least 1 deposit and = 10% of loan amount
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  // now, if the maximum deposit in the account is 3,000 >> user can request 30,000
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    // Add movement to array
+    currentAccount.movements.push(amount);
+    // update UI
+    updateUI(currentAccount);
+    // clear fields
+    inputLoanAmount.value = "";
+    inputLoanAmount.blur(); // remove focus
   }
 });
