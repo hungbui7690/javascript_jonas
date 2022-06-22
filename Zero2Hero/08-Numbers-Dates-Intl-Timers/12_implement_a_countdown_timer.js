@@ -207,6 +207,8 @@ function formatDateDiff(numOfDays) {
 ************************************
 
 * Sau 1 khoảng thời gian nhất định thì sẽ phải logout user ra vì để an toàn cho tài khoản của users
+*   Sau khi login thì chúng ta sẽ bắt đầu timer, và timer sẽ đếm lùi liên tục cho đến 0 
+*   Chỉ Reset Timer khi thực hiện Transfer hoặc Request Loan. >> Lưu ý: reset = clearInterval() + chạy lại
 */
 
 const startLogoutTimer = () => {
