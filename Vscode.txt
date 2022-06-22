@@ -2,6 +2,7 @@ monokai
 Prettier
 colorize (css color visualization)
 output colorizer
+Better Comments
 
 Settings
 - Format on Save
