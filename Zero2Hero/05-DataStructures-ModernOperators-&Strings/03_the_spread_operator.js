@@ -40,7 +40,7 @@ const badNewArray = [1, 2, arr[0], arr[1], arr[2]];
 console.log(`badNewArray`, badNewArray);
 
 // ES6
-const arr1 = [1, 2, arr]; // without ... >> without unpacking the arr array
+const arr1 = [1, 2, arr]; // withOUT ... >> without unpacking the arr array >>> array inside array
 console.log(`arr1`, arr1);
 
 const newArray = [1, 2, ...arr]; // with ... >> unpacking the arr array

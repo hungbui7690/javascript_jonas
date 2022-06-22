@@ -20,7 +20,7 @@ const restaurant = {
     },
   },
 
-  // V1
+  // V1: nhận vào object
   // orderDelivery: function (obj) {
   //   console.log(obj);
   // },

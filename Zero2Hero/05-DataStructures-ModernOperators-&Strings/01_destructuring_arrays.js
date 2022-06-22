@@ -33,8 +33,12 @@ const [first, second] = restaurant.categories;
 console.log(first, second);
 
 // get the 1st and the 3rd elements in the array
-let [main, , secondary] = restaurant.categories;
-console.log(main, secondary);
+let [mainx, , third] = restaurant.categories;
+console.log(mainx, third);
+
+// get the 1st and the 4th elements in the array
+let [mainz, , , forth] = restaurant.categories;
+console.log(mainz, forth);
 
 //---------------------------------------------------
 console.log("---------- 2 -----------");
@@ -42,14 +46,14 @@ console.log("---------- 2 -----------");
 
 // if we want to switch main and secondary in the array
 // old method
-let temp = main;
-main = secondary;
-secondary = temp;
-console.log(main, secondary);
+let temp = mainx;
+mainx = third;
+third = temp;
+console.log(mainx, third);
 
 // new method
-[main, secondary] = [secondary, main];
-console.log(main, secondary);
+[mainx, third] = [third, mainx];
+console.log(mainx, third);
 
 //---------------------------------------------------
 console.log("---------- 3 -----------");

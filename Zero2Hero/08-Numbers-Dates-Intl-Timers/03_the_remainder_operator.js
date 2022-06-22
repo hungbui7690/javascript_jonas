@@ -132,222 +132,6 @@ btnLogin.addEventListener('click', function (e) {
   }
 });
 
-btnTransfer.addEventListener('click', function (e) {
-  e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
-  const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
-  );
-  inputTransferAmount.value = inputTransferTo.value = '';
-
-  if (
-    amount > 0 &&
-    receiverAcc &&
-    currentAccount.balance >= amount &&
-    receiverAcc?.username !== currentAccount.username
-  ) {
-    // Doing the transfer
-    currentAccount.movements.push(-amount);
-    receiverAcc.movements.push(amount);
-
-    // Update UI
-    updateUI(currentAccount);
-  }
-});
-
-btnClose.addEventListener('click', function (e) {
-  e.preventDefault();
-
-  if (
-    inputCloseUsername.value === currentAccount.username &&
-    Number(inputClosePin.value) === currentAccount.pin
-  ) {
-    const index = accounts.findIndex(
-      acc => acc.username === currentAccount.username
-    );
-    console.log(index);
-    // .indexOf(23)
-
-    // Delete account
-    accounts.splice(index, 1);
-
-    // Hide UI
-    containerApp.style.opacity = 0;
-  }
-
-  inputCloseUsername.value = inputClosePin.value = '';
-});
-
-let sorted = false;
-btnSort.addEventListener('click', function (e) {
-  e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
-  sorted = !sorted;
-});
-
-/* 
-
-************************************
-========== START HERE ==============
-************************************
-
-*/
-/* 
-----------------------------------------
-*/
-console.log('=========== 0 ===========');
-/* 
-======================== 0 =================
-*/
-
-console.log(Math.sqrt(25));
-console.log(25 ** (1 / 2));
-console.log(8 ** (1 / 3));
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 1 ===========');
-/* 
-======================== 1 =================
-*/
-
-console.log(Math.max(1, -4, 20, 99, 48, 10));
-console.log(Math.max(1, -4, 20, '99', 48, 10));
-console.log(Math.max(1, -4, 20, '99px', 48, 10));
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 2 ===========');
-/* 
-======================== 2 =================
-*/
-
-console.log(Math.PI);
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 3 ===========');
-/* 
-======================== 3 =================
-*/
-
-// tạo số random
-console.log(Math.random()); // random từ 0 - 0.999999
-console.log(Math.random() * 6); // random từ 0 - 5.9999
-console.log(Math.trunc(Math.random() * 6)); // random từ 0 - 5
-console.log(Math.trunc(Math.random() * 6) + 1); // random từ 1 - 6
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 4 ===========');
-/* 
-======================== 4 =================
-*/
-
-const randomInt = (min, max) => {
-  return Math.trunc(Math.random() * (max - min) + 1) + min;
-};
-console.log(randomInt(1, 3));
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 5 ===========');
-/* 
-======================== 5 =================
-*/
-
-// Rounding Integers
-console.log(Math.trunc(23.333)); // 23
-
-console.log(`-------------`);
-
-console.log(Math.round(23.3)); // 23
-console.log(Math.round(23.5)); // 24
-console.log(Math.round(23.9)); // 24
-
-console.log(`-------------`);
-
-console.log(Math.ceil(23.3)); // 24
-console.log(Math.ceil(23.5)); // 24
-console.log(Math.ceil(23.9)); // 24
-
-console.log(`-------------`);
-console.log(Math.floor(23.3)); // 23
-console.log(Math.floor(23.5)); // 23
-console.log(Math.floor('23.9')); // 23
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 6 ===========');
-/* 
-======================== 6 =================
-*/
-
-// với positive #, trunc() và floor() work giống nhau
-console.log(Math.trunc(23.333)); // 23
-console.log(Math.floor(23.9)); // 23
-
-console.log(`-------------`);
-
-// nhưng với negative #, 2 thằng này sẽ ra khác >> vì vậy phải tùy trường hợp mà áp dụng >> với thằng random ở trên thì nên dùng floor() thay vì trunc()
-console.log(Math.trunc(-23.333)); // -23
-console.log(Math.floor(-23.9)); // -24
-
-/* 
-----------------------------------------
-*/
-console.log('=========== 7 ===========');
-/* 
-======================== 7 =================
-*/
-// Rounding Decimals
-// toFixed() luôn trả về STRING
-console.log((2.7).toFixed(0));
-console.log((2.7).toFixed(3));
-console.log((2.345).toFixed(2));
-console.log(+(2.344).toFixed(2)); // convert back to #
-
-/* 
-=================== APP ===================
-*/
-// Round the decimal # in IN & OUT trong APP của chúng ta
-// login: js/1111
-// Hiện tại, khi Loan thì chúng ta có thể Loan decimal (i.e.: 150.3$). Nhưng điều này không đúng trong thực tế
-
-btnLoan.addEventListener('click', function (e) {
-  e.preventDefault();
-
-  /* 
-    fix chỗ này
-  */
-  // const amount = Number(inputLoanAmount.value);
-  const amount = Math.floor(+inputLoanAmount.value);
-  /* 
-    ===========================
-  */
-
-  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
-
-    // Update UI
-    updateUI(currentAccount);
-  }
-  inputLoanAmount.value = '';
-});
-
-/* 
-
-  Hiện tại, các chỗ display đang hiển thị lúc thì 1 số thập phân, lúc thì 2 số thập phân >> toFixed(2)
-
-
-*/
 const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -395,3 +179,70 @@ const calcDisplaySummary = function (acc) {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
+
+/* 
+
+************************************
+========== START HERE ==============
+************************************
+
+*/
+/* 
+----------------------------------------
+*/
+console.log('=========== 0 ===========');
+/* 
+======================== 0 =================
+*/
+
+console.log(5 % 2); // 1
+console.log(5 / 2); // 2.5
+
+console.log(8 % 3); // 2
+console.log(8 / 3);
+
+/* 
+----------------------------------------
+*/
+console.log('=========== 1 ===========');
+/* 
+======================== 1 =================
+*/
+
+console.log(6 % 2);
+console.log(6 / 2);
+
+/* 
+----------------------------------------
+*/
+console.log('=========== 2 ===========');
+/* 
+======================== 2 =================
+*/
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8));
+console.log(isEven(13));
+console.log(isEven(520));
+
+/*
+
+//////////////////////////////////////////////
+//////////////////// APP /////////////////////
+
+Biến những dòng chắn (dòng 2, 4, 6, 8...) có style khác với những dòng lẻ 
+*/
+
+// viết kiểu này sẽ không work, vì nó phải nằm trong 1 event handler >> kiểu viết hiện tại này sẽ bị overwrite bởi mấy thằng eventhandler khác
+// [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//   if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+// });
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    // 0, 2, 4, 6, 8
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    // 0, 3, 6, 9 >> sẽ có những thằng overlap với thằng trên
+    if (i % 3 === 0) row.style.backgroundColor = 'green';
+  });
+});

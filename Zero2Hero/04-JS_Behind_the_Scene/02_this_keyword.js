@@ -30,8 +30,7 @@ const calcAgeArrow = (birthYear) => {
   console.log(this);
 };
 
-// this = window object
-// arrow function >> this = surround object
+// arrow function >> this = surround object = global scope = window object
 calcAgeArrow(1990);
 
 // ---------------------------------------------------------
@@ -61,6 +60,8 @@ matilda.calcAge = joe.calcAge;
 
 console.log(joe);
 console.log(matilda);
+
+console.log("=========");
 
 // though calcAge() was written in joe, but matilda is the one who calls it, so "this" = matilda object
 matilda.calcAge();
